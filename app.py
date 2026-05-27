@@ -310,8 +310,6 @@ def apply_filter(mode="hpf"):
 
         processed_img = cv2.filter2D(pop, -1, kernel)
 
-    elif mode == "dragan":
-
         # smooth nhẹ
         smooth = cv2.bilateralFilter(img, 9, 75, 75)
 
@@ -489,17 +487,6 @@ btn_popart = Button(
 )
 btn_popart.pack(side=LEFT, padx=8)
 
-btn_dragan = Button(
-    frame_filters,
-    text="Dragan Effect",
-    font=button_font,
-    bg="#555555",
-    fg="white",
-    width=button_width,
-    height=button_height,
-    command=lambda: apply_filter("dragan")
-)
-btn_dragan.pack(side=LEFT, padx=8)
 # =========================
 # RUN
 # =========================
