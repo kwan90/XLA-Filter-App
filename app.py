@@ -26,7 +26,7 @@ processed_img = None
 
 title = Label(
     root,
-    text="Advanced Image Processing Application",
+    text="HPF Filter App",
     font=("Arial", 24, "bold"),
     bg="#1e1e1e",
     fg="white"
@@ -414,103 +414,92 @@ btn_reset.grid(row=0, column=2, padx=12, pady=8)
 # ROW 2 - FILTERS
 # =========================
 
-btn_hpf = Button(
-    frame_buttons,
-    text="Open Image",
-    font=button_font,
-    bg="#3498db",
-    fg="white",
-    width=button_width,
-    height=button_height,
-    command=open_image
-)
-
+frame_filters = Frame(frame_buttons, bg="#1e1e1e")
+frame_filters.grid(row=1, column=0, columnspan=7, pady=10)
 
 btn_hpf = Button(
-    frame_buttons,
+    frame_filters,
     text="HPF Sharpen",
     font=button_font,
     bg="#e74c3c",
     fg="white",
     width=button_width,
     height=button_height,
-    command=lambda: apply_filter(mode="hpf")
+    command=lambda: apply_filter("hpf")
 )
-btn_hpf.grid(row=1, column=0, padx=8, pady=8)
+btn_hpf.pack(side=LEFT, padx=8)
 
 btn_sobel = Button(
-    frame_buttons,
+    frame_filters,
     text="Sobel Edge",
     font=button_font,
     bg="#1abc9c",
     fg="white",
     width=button_width,
     height=button_height,
-    command=lambda: apply_filter(mode="sobel")
+    command=lambda: apply_filter("sobel")
 )
-btn_sobel.grid(row=1, column=2, padx=8, pady=8)
+btn_sobel.pack(side=LEFT, padx=8)
 
 btn_canny = Button(
-    frame_buttons,
+    frame_filters,
     text="Canny Edge",
     font=button_font,
     bg="#34495e",
     fg="white",
     width=button_width,
     height=button_height,
-    command=lambda: apply_filter(mode="canny")
+    command=lambda: apply_filter("canny")
 )
-btn_canny.grid(row=1, column=3, padx=8, pady=8)
+btn_canny.pack(side=LEFT, padx=8)
 
 btn_laplacian = Button(
-    frame_buttons,
+    frame_filters,
     text="Laplacian",
     font=button_font,
     bg="#16a085",
     fg="white",
     width=button_width,
     height=button_height,
-    command=lambda: apply_filter(mode="laplacian")
+    command=lambda: apply_filter("laplacian")
 )
-btn_laplacian.grid(row=1, column=4, padx=8, pady=8)
-
-btn_popart = Button(
-    frame_buttons,
-    text="Pop Art",
-    font=button_font,
-    bg="#ffcc00",
-    fg="black",
-    width=button_width,
-    height=button_height,
-    command=lambda: apply_filter(mode="popart")
-)
-btn_popart.grid(row=1, column=7, padx=8, pady=8)
+btn_laplacian.pack(side=LEFT, padx=8)
 
 btn_sketch = Button(
-    frame_buttons,
+    frame_filters,
     text="Sketch",
     font=button_font,
     bg="#c0392b",
     fg="white",
     width=button_width,
     height=button_height,
-    command=lambda: apply_filter(mode="sketch")
+    command=lambda: apply_filter("sketch")
 )
-btn_sketch.grid(row=1, column=6, padx=8, pady=8)
+btn_sketch.pack(side=LEFT, padx=8)
+
+btn_popart = Button(
+    frame_filters,
+    text="Pop Art",
+    font=button_font,
+    bg="#ffcc00",
+    fg="black",
+    width=button_width,
+    height=button_height,
+    command=lambda: apply_filter("popart")
+)
+btn_popart.pack(side=LEFT, padx=8)
 
 btn_dragan = Button(
-    frame_buttons,
+    frame_filters,
     text="Dragan Effect",
     font=button_font,
     bg="#555555",
     fg="white",
     width=button_width,
     height=button_height,
-    command=lambda: apply_filter(mode="dragan")
+    command=lambda: apply_filter("dragan")
 )
-
-btn_dragan.grid(row=1, column=8, padx=8, pady=8)
-
+btn_dragan.pack(side=LEFT, padx=8)
 # =========================
 # RUN
 # =========================
