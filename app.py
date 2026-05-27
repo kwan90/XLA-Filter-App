@@ -272,81 +272,6 @@ def apply_filter(mode="hpf"):
 
         processed_img = cv2.cvtColor(sketch, cv2.COLOR_GRAY2BGR)
 
-    elif mode == "popart":
-
-        # smooth image
-        smooth = cv2.bilateralFilter(img, 9, 75, 75)
-
-        # reduce colors (posterize)
-        div = 64
-        pop = smooth // div * div + div // 2
-
-        # edge detect
-        gray = cv2.cvtColor(pop, cv2.COLOR_BGR2GRAY)
-
-        edges = cv2.Canny(gray, 80, 180)
-
-        edges = 255 - edges
-
-        # bold black edges
-        edges_colored = cv2.cvtColor(edges, cv2.COLOR_GRAY2BGR)
-
-        # combine edge + color
-        pop = cv2.bitwise_and(pop, edges_colored)
-
-        # increase saturation
-        hsv = cv2.cvtColor(pop, cv2.COLOR_BGR2HSV)
-
-        hsv[:, :, 1] = np.clip(hsv[:, :, 1] * 1.8, 0, 255)
-
-        pop = cv2.cvtColor(hsv, cv2.COLOR_HSV2BGR)
-
-        # sharpen
-        kernel = np.array([
-            [-1,-1,-1],
-            [-1, 9,-1],
-            [-1,-1,-1]
-        ])
-
-        processed_img = cv2.filter2D(pop, -1, kernel)
-
-        # smooth nhẹ
-        smooth = cv2.bilateralFilter(img, 9, 75, 75)
-
-        # high contrast
-        contrast = cv2.convertScaleAbs(
-            smooth,
-            alpha=1.5,
-            beta=-20
-        )
-
-        # HPF sharpen
-        kernel = np.array([
-            [-1,-1,-1],
-            [-1, 9,-1],
-            [-1,-1,-1]
-        ])
-
-        sharp = cv2.filter2D(contrast, -1, kernel)
-
-        # clarity effect
-        blur = cv2.GaussianBlur(sharp, (0, 0), 5)
-
-        clarity = cv2.addWeighted(
-            sharp,
-            1.5,
-            blur,
-            -0.5,
-            0
-        )
-
-        # dark cinematic tone
-        hsv = cv2.cvtColor(clarity, cv2.COLOR_BGR2HSV)
-
-        hsv[:, :, 1] = np.clip(hsv[:, :, 1] * 0.7, 0, 255)
-
-        processed_img = cv2.cvtColor(hsv, cv2.COLOR_HSV2BGR)
-
     display_image(processed_img, panel_processed)
 
 # =========================
@@ -474,18 +399,6 @@ btn_sketch = Button(
     command=lambda: apply_filter("sketch")
 )
 btn_sketch.pack(side=LEFT, padx=8)
-
-btn_popart = Button(
-    frame_filters,
-    text="Pop Art",
-    font=button_font,
-    bg="#ffcc00",
-    fg="black",
-    width=button_width,
-    height=button_height,
-    command=lambda: apply_filter("popart")
-)
-btn_popart.pack(side=LEFT, padx=8)
 
 # =========================
 # RUN
